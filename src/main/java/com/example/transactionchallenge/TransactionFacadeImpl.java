@@ -24,8 +24,8 @@ public class TransactionFacadeImpl implements TransactionFacade {
 
     @Override
     public AccountResponse getAccount(Long id) {
-        var account = accountRepository.
-                findById(id)
+        var account = accountRepository
+                .findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         return converter.fromAccount(account);
     }
@@ -33,11 +33,11 @@ public class TransactionFacadeImpl implements TransactionFacade {
     @Override
     public AccountResponse createAccount(AccountRequest accountRequest) {
         var account = converter.fromRequest(accountRequest);
-        var saved = accountRepository.findByDocumentNumber(accountRequest)
+        var saved =
+                accountRepository.findByDocumentNumber(accountRequest.documentNumber().toString())
                 .orElse(accountRepository.save(account));
         return converter.fromAccount(saved);
     }
-
 
     @Override
     public void createTransaction(TransactionRequest transactionRequest) {

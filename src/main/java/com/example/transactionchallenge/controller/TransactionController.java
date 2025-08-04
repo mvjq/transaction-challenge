@@ -15,8 +15,8 @@ public class TransactionController {
         this.transactionFacade = transactionFacade;
     }
 
-    @GetMapping("/accounts")
-    public AccountResponse getAccount(@RequestParam Long id) {
+    @GetMapping("/accounts/{id}")
+    public AccountResponse getAccount(@PathVariable Long id) {
         return transactionFacade.getAccount(id);
     }
 

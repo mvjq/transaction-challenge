@@ -1,19 +1,16 @@
 package com.example.transactionchallenge.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Account {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true)
     private String documentNumber;
 
-    public Account(Long id, String documentNumber) {
-        this.id = id;
+    public Account(String documentNumber) {
         this.documentNumber = documentNumber;
     }
 
