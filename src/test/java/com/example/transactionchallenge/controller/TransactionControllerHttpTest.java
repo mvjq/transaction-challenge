@@ -4,6 +4,7 @@ import com.example.transactionchallenge.controller.dto.AccountRequest;
 import com.example.transactionchallenge.controller.dto.AccountResponse;
 import com.example.transactionchallenge.controller.dto.TransactionRequest;
 import com.example.transactionchallenge.controller.dto.TransactionResponse;
+import com.example.transactionchallenge.domain.OperationType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -24,10 +25,13 @@ public class TransactionControllerHttpTest {
     // Family 2XX
     @Test // FIXME: 200 -> 201
     void shouldCreateTransactionAndReturn200() {
+        var request = new TransactionRequest(1L,
+                OperationType.PURCHASE_INSTALLMENTS, 10.00);
+
         webTestClient.post()
                 .uri("/transaction")
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(Mono.just(new TransactionRequest()), TransactionRequest.class)
+                .body(Mono.just(request), TransactionRequest.class)
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(TransactionResponse.class);
@@ -35,9 +39,10 @@ public class TransactionControllerHttpTest {
 
     @Test // FIXME: 200 -> 201
     void shouldCreateAccountAndReturn200() {
+        var request = new AccountRequest( "documentNumber");
         webTestClient.post()
                 .uri("/accounts")
-                .body(Mono.just(new AccountRequest()), AccountRequest.class)
+                .body(Mono.just(request), AccountRequest.class)
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(AccountResponse.class);

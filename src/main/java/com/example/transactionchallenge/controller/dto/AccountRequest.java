@@ -1,4 +1,5 @@
 package com.example.transactionchallenge.controller.dto;
 
-public record AccountRequest() {
-}
+import jakarta.validation.constraints.NotNull;
+
+public record AccountRequest(@NotNull String documentNumber) {}

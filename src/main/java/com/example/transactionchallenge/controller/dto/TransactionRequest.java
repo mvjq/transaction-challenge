@@ -1,4 +1,6 @@
 package com.example.transactionchallenge.controller.dto;
 
-public record TransactionRequest() {
-}
+import com.example.transactionchallenge.domain.OperationType;
+
+public record TransactionRequest(Long accountId, OperationType operationTypeId,
+                                 Double amount) {}
