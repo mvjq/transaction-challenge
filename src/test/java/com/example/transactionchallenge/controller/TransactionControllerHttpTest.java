@@ -13,7 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -46,7 +45,6 @@ public class TransactionControllerHttpTest {
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(AccountResponse.class);
-
     }
 
     @Test // FIXME: 200 -> 201
@@ -63,4 +61,15 @@ public class TransactionControllerHttpTest {
     }
 
     // Family 4XX
+    @Test
+    void shouldNotGetAccountAndReturn404(@Autowired WebTestClient webTestClient) {
+        webTestClient
+                .get()
+                .uri(uriBuilder ->
+                        uriBuilder.path("/accounts")
+                                .queryParam("id", "1")
+                                .build())
+                .exchange()
+                .expectStatus().isNotFound();
+    }
 }

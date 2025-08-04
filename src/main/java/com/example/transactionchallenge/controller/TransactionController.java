@@ -21,8 +21,8 @@ public class TransactionController {
     }
 
     @PostMapping("/accounts")
-    public void createAccount(@RequestBody AccountRequest accountRequest) {
-        transactionFacade.createAccount(accountRequest);
+    public AccountResponse createAccount(@RequestBody AccountRequest accountRequest) {
+        return transactionFacade.createAccount(accountRequest);
     }
 
     @PostMapping("/transaction")
