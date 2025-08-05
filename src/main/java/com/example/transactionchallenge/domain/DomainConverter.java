@@ -11,21 +11,22 @@ import org.springframework.stereotype.Component;
 @Component
 public class DomainConverter {
 
-    public Account fromRequest(AccountRequest accountRequest) {
+    public Account toAccount(AccountRequest accountRequest) {
         return new Account(accountRequest.documentNumber());
     }
 
-    public AccountResponse fromAccount(Account account) {
+    public AccountResponse toResponse(Account account) {
         return new AccountResponse(account.getId(), account.getDocumentNumber());
     }
 
-    public Transaction fromRequest(TransactionRequest transactionRequest, Account account) {
+    public Transaction toTransaction(TransactionRequest transactionRequest,
+                                     Account account) {
         return new Transaction(account.getId(),
                 transactionRequest.operationTypeId(),
                 transactionRequest.amount());
     }
 
-    public TransactionResponse fromTransaction(Transaction transaction) {
+    public TransactionResponse toResponse(Transaction transaction) {
         return null;
     }
 }

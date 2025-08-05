@@ -28,16 +28,16 @@ public class TransactionFacadeImpl implements TransactionFacade {
         var account = accountRepository
                 .findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        return converter.fromAccount(account);
+        return converter.toResponse(account);
     }
 
     @Override
     public AccountResponse createAccount(AccountRequest accountRequest) {
-        var account = converter.fromRequest(accountRequest);
+        var account = converter.toAccount(accountRequest);
         var saved =
                 accountRepository.findByDocumentNumber(accountRequest.documentNumber().toString())
                 .orElse(accountRepository.save(account));
-        return converter.fromAccount(saved);
+        return converter.toResponse(saved);
     }
 
     @Override
@@ -46,10 +46,10 @@ public class TransactionFacadeImpl implements TransactionFacade {
                 accountRepository.findById(transactionRequest.accountId())
                         .orElseThrow(() ->
                                 new  ResponseStatusException(HttpStatus.NOT_FOUND));
-        var transaction = converter.fromRequest(transactionRequest, account);
+        var transaction = converter.toTransaction(transactionRequest, account);
 
         var saved = transactionRepository.save(transaction);
 
-        return converter.fromTransaction(saved);
+        return converter.toResponse(saved);
     }
 }
