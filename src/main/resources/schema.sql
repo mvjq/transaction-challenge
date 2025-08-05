@@ -28,11 +28,11 @@ ALTER TABLE transaction
 
 -- Insert sample accounts
 INSERT INTO account (document_number) VALUES
-('12345678900'),
-('98765432100'),
-('11122233344'),
-('55566677788'),
-('99988877766');
+                                          ('12345678900'),
+                                          ('98765432100'),
+                                          ('11122233344'),
+                                          ('55566677788'),
+                                          ('99988877766');
 
 -- ============
 
@@ -40,11 +40,11 @@ INSERT INTO account (document_number) VALUES
 
 -- Insert sample accounts
 INSERT INTO account (document_number) VALUES
-('12345678900'),
-('98765432100'),
-('11122233344'),
-('55566677788'),
-('99988877766');
+                                          ('12345678900'),
+                                          ('98765432100'),
+                                          ('11122233344'),
+                                          ('55566677788'),
+                                          ('99988877766');
 
 -- ======================== TRANSACTION TABLE INSERTS ========================
 
@@ -109,30 +109,30 @@ INSERT INTO transaction (account_id, operation_type_id, amount, transaction_date
 
 -- Insert more accounts with current timestamp transactions
 INSERT INTO account (document_number) VALUES
-('12312312312'),
-('45645645645'),
-('78978978978'),
-('32132132132'),
-('65465465465');
+                                          ('12312312312'),
+                                          ('45645645645'),
+                                          ('78978978978'),
+                                          ('32132132132'),
+                                          ('65465465465');
 
 -- Insert recent transactions with CURRENT_TIMESTAMP
 INSERT INTO transaction (account_id, operation_type_id, amount, transaction_date) VALUES
-(6, 1, -29.99, CURRENT_TIMESTAMP - INTERVAL '5 hours'),
-(6, 1, -15.50, CURRENT_TIMESTAMP - INTERVAL '4 hours'),
-(6, 4, 100.00, CURRENT_TIMESTAMP - INTERVAL '3 hours'),
-(6, 3, -50.00, CURRENT_TIMESTAMP - INTERVAL '2 hours'),
-(6, 1, -8.75, CURRENT_TIMESTAMP - INTERVAL '1 hour'),
+                                                                                      (6, 1, -29.99, CURRENT_TIMESTAMP - INTERVAL '5 hours'),
+                                                                                      (6, 1, -15.50, CURRENT_TIMESTAMP - INTERVAL '4 hours'),
+                                                                                      (6, 4, 100.00, CURRENT_TIMESTAMP - INTERVAL '3 hours'),
+                                                                                      (6, 3, -50.00, CURRENT_TIMESTAMP - INTERVAL '2 hours'),
+                                                                                      (6, 1, -8.75, CURRENT_TIMESTAMP - INTERVAL '1 hour'),
 
-(7, 2, -199.99, CURRENT_TIMESTAMP - INTERVAL '6 hours'),
-(7, 4, 250.00, CURRENT_TIMESTAMP - INTERVAL '3 hours'),
-(7, 1, -45.30, CURRENT_TIMESTAMP - INTERVAL '1 hour'),
+                                                                                      (7, 2, -199.99, CURRENT_TIMESTAMP - INTERVAL '6 hours'),
+                                                                                      (7, 4, 250.00, CURRENT_TIMESTAMP - INTERVAL '3 hours'),
+                                                                                      (7, 1, -45.30, CURRENT_TIMESTAMP - INTERVAL '1 hour'),
 
-(8, 3, -300.00, CURRENT_TIMESTAMP - INTERVAL '8 hours'),
-(8, 4, 150.00, CURRENT_TIMESTAMP - INTERVAL '4 hours'),
-(8, 1, -22.50, CURRENT_TIMESTAMP - INTERVAL '2 hours'),
+                                                                                      (8, 3, -300.00, CURRENT_TIMESTAMP - INTERVAL '8 hours'),
+                                                                                      (8, 4, 150.00, CURRENT_TIMESTAMP - INTERVAL '4 hours'),
+                                                                                      (8, 1, -22.50, CURRENT_TIMESTAMP - INTERVAL '2 hours'),
 
-(9, 1, -55.80, CURRENT_TIMESTAMP - INTERVAL '7 hours'),
-(9, 1, -33.20, CURRENT_TIMESTAMP - INTERVAL '5 hours'),
-(9, 4, 200.00, CURRENT_TIMESTAMP - INTERVAL '3 hours'),
+                                                                                      (9, 1, -55.80, CURRENT_TIMESTAMP - INTERVAL '7 hours'),
+                                                                                      (9, 1, -33.20, CURRENT_TIMESTAMP - INTERVAL '5 hours'),
+                                                                                      (9, 4, 200.00, CURRENT_TIMESTAMP - INTERVAL '3 hours'),
 
-(10, 4, 1000.00, CURRENT_TIMESTAMP - INTERVAL '1 day');
+                                                                                      (10, 4, 1000.00, CURRENT_TIMESTAMP - INTERVAL '1 day');

@@ -14,7 +14,7 @@ help: ## Show this help message
 
 ## Build
 build-notest: ## Build the application
-	@echo "building Transaction application"
+	@echo "building Transaction application (without tests)"
 	$(GRADLE) build -x test
 
 
@@ -27,6 +27,10 @@ run:
 	$(GRADLE) bootRun
 
 stop:
-	@echo "Running Transaction application"
+	@echo "Stopping Transaction application"
 	$(GRADLE) --stop
 	@pkill -f "gradle" || true
+
+test:
+	@echo "Running Transaction tests"
+	$(GRADLE) test

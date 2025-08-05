@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
 @Component
-public class TransactionFacadeImpl implements TransactionFacade {
+public class TransactionServiceImpl implements TransactionService {
     private final TransactionRepository transactionRepository;
     private final AccountRepository accountRepository;
     private final DomainConverter converter;
 
-    public TransactionFacadeImpl(TransactionRepository transactionRepository, AccountRepository accountRepository, DomainConverter converter) {
+    public TransactionServiceImpl(TransactionRepository transactionRepository, AccountRepository accountRepository, DomainConverter converter) {
         this.transactionRepository = transactionRepository;
         this.accountRepository = accountRepository;
         this.converter = converter;

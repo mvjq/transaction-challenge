@@ -6,7 +6,7 @@ import com.example.transactionchallenge.controller.dto.AccountResponse;
 import com.example.transactionchallenge.controller.dto.TransactionRequest;
 import com.example.transactionchallenge.controller.dto.TransactionResponse;
 
-public interface TransactionFacade {
+public interface TransactionService {
     AccountResponse createAccount(AccountRequest accountRequest);
     AccountResponse getAccount(Long id);
     TransactionResponse createTransaction(TransactionRequest transactionRequest);
