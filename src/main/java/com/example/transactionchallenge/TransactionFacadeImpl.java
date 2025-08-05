@@ -62,7 +62,6 @@ public class TransactionFacadeImpl implements TransactionFacade {
                         .orElseThrow(() ->
                                 new  ResponseStatusException(HttpStatus.NOT_FOUND));
         var transaction = converter.toEntity(transactionRequest, account);
-
         var saved = transactionRepository.save(transaction);
 
         return converter.toResponse(saved);

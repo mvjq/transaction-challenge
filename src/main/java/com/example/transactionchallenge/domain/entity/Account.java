@@ -12,12 +12,22 @@ public class Account {
     private String documentNumber;
 
     public Account(String documentNumber) {
+        validateDocumentNumber(documentNumber);
+
         this.documentNumber = documentNumber;
     }
 
     public Account(Long id, String documentNumber) {
+        validateDocumentNumber(documentNumber);
+
         this.id = id;
         this.documentNumber = documentNumber;
+    }
+
+    private static void validateDocumentNumber(String documentNumber) {
+        if (documentNumber == null || documentNumber.trim().isEmpty()) {
+            throw new IllegalStateException("Document number cannot be null or empty");
+        }
     }
 
     public Account() {}

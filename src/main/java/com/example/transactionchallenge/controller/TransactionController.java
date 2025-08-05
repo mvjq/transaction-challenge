@@ -5,6 +5,8 @@ import com.example.transactionchallenge.controller.dto.AccountRequest;
 import com.example.transactionchallenge.controller.dto.AccountResponse;
 import com.example.transactionchallenge.controller.dto.TransactionRequest;
 import com.example.transactionchallenge.controller.dto.TransactionResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,13 +24,17 @@ public class TransactionController {
     }
 
     @PostMapping("/accounts")
-    public AccountResponse createAccount(@RequestBody AccountRequest accountRequest) {
-        return transactionFacade.createAccount(accountRequest);
+    public ResponseEntity<AccountResponse> createAccount(@RequestBody AccountRequest accountRequest) {
+        var created = transactionFacade.createAccount(accountRequest);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @PostMapping("/transaction")
-    public TransactionResponse createTransaction(@RequestBody TransactionRequest transactionRequest) {
-        return transactionFacade.createTransaction(transactionRequest);
+    public ResponseEntity<TransactionResponse> createTransaction(@RequestBody TransactionRequest transactionRequest) {
+        var created = transactionFacade.createTransaction(transactionRequest);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
 }

@@ -1,3 +1,6 @@
+
+GRADLE := ./gradlew
+
 # Default target
 .DEFAULT_GOAL := help
 
