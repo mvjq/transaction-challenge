@@ -3,18 +3,32 @@ package com.example.transactionchallenge.domain.entity;
 import com.example.transactionchallenge.domain.OperationType;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 public class Transaction {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "transaction_id")
     private Long id;
-    private Long accountId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "account_id",
+            referencedColumnName = "account_id",
+            insertable = false,
+            updatable = false
+    )
+    private Account account;
+    @Column(name = "operation_type_id")
     private OperationType operationType;
     private double amount;
+    private LocalDateTime transactionDate;
 
     public Transaction() {}
 
-    public Transaction(Long accountId, int operationId,
+    public Transaction(Account account, int operationId,
                        double amount) {
         // validation
         var operationType =  OperationType.fromValue(operationId);
@@ -22,9 +36,10 @@ public class Transaction {
             throw new IllegalStateException("Amount cant be zero or negative");
         }
 
-        this.accountId = accountId;
+        this.account = account;
         this.operationType = operationType;
         this.amount = amountWithOperationType(amount);
+        this.transactionDate = LocalDateTime.now();
     }
 
     private double amountWithOperationType(double amount) {
@@ -42,8 +57,8 @@ public class Transaction {
         return id;
     }
 
-    public Long getAccountId() {
-        return accountId;
+    public Account getAccount() {
+        return account;
     }
 
     public OperationType getOperationType() {
@@ -52,5 +67,9 @@ public class Transaction {
 
     public double getAmount() {
         return amount;
+    }
+
+    public LocalDateTime getTransactionDate() {
+        return transactionDate;
     }
 }

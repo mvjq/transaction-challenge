@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DomainConverter {
 
-    public Account toAccount(AccountRequest accountRequest) {
+    public Account toEntity(AccountRequest accountRequest) {
         return new Account(accountRequest.documentNumber());
     }
 
@@ -19,14 +19,26 @@ public class DomainConverter {
         return new AccountResponse(account.getId(), account.getDocumentNumber());
     }
 
-    public Transaction toTransaction(TransactionRequest transactionRequest,
-                                     Account account) {
-        return new Transaction(account.getId(),
+    public AccountRequest toRequest(Account account) {
+        return new AccountRequest(account.getDocumentNumber());
+    }
+
+    public Transaction toEntity(TransactionRequest transactionRequest,
+                                Account account) {
+        return new Transaction(account,
                 transactionRequest.operationTypeId(),
                 transactionRequest.amount());
     }
 
     public TransactionResponse toResponse(Transaction transaction) {
-        return null;
+        return new TransactionResponse(transaction.getAccount().getId(),
+                transaction.getOperationType().getValue(),
+                transaction.getAmount());
+    }
+
+    public TransactionRequest toRequest(Transaction transaction) {
+        return new TransactionRequest(transaction.getAccount().getId(),
+                transaction.getOperationType().getValue(),
+                transaction.getAmount());
     }
 }

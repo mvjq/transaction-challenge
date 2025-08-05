@@ -33,20 +33,35 @@ public class TransactionFacadeImpl implements TransactionFacade {
 
     @Override
     public AccountResponse createAccount(AccountRequest accountRequest) {
-        var account = converter.toAccount(accountRequest);
+
+        if (accountRequest.documentNumber() == null ||
+            accountRequest.documentNumber().trim().isEmpty()) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Document number is required and cannot be empty");
+        }
+
+        var account = converter.toEntity(accountRequest);
         var saved =
-                accountRepository.findByDocumentNumber(accountRequest.documentNumber().toString())
+                accountRepository.findByDocumentNumber(account.getDocumentNumber())
                 .orElse(accountRepository.save(account));
         return converter.toResponse(saved);
     }
 
     @Override
     public TransactionResponse createTransaction(TransactionRequest transactionRequest) {
+
+        if (transactionRequest.accountId() == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Account ID is required and cannot be empty");
+        }
+
         var account =
                 accountRepository.findById(transactionRequest.accountId())
                         .orElseThrow(() ->
                                 new  ResponseStatusException(HttpStatus.NOT_FOUND));
-        var transaction = converter.toTransaction(transactionRequest, account);
+        var transaction = converter.toEntity(transactionRequest, account);
 
         var saved = transactionRepository.save(transaction);
 
