@@ -1,4 +1,8 @@
 package com.example.transactionchallenge.controller.dto;
 
-//FIXME - see if i really need this
-public record TransactionResponse() {}
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public record TransactionResponse(
+        @JsonProperty("account_id") int accountId,
+        @JsonProperty("operation_type_id") int operationTypeId,
+        Double amount) {}

@@ -3,6 +3,7 @@ package com.example.transactionchallenge;
 import com.example.transactionchallenge.controller.dto.AccountRequest;
 import com.example.transactionchallenge.controller.dto.AccountResponse;
 import com.example.transactionchallenge.controller.dto.TransactionRequest;
+import com.example.transactionchallenge.controller.dto.TransactionResponse;
 import com.example.transactionchallenge.domain.DomainConverter;
 import com.example.transactionchallenge.domain.repository.AccountRepository;
 import com.example.transactionchallenge.domain.repository.TransactionRepository;
@@ -40,13 +41,15 @@ public class TransactionFacadeImpl implements TransactionFacade {
     }
 
     @Override
-    public void createTransaction(TransactionRequest transactionRequest) {
+    public TransactionResponse createTransaction(TransactionRequest transactionRequest) {
         var account =
                 accountRepository.findById(transactionRequest.accountId())
                         .orElseThrow(() ->
                                 new  ResponseStatusException(HttpStatus.NOT_FOUND));
         var transaction = converter.fromRequest(transactionRequest, account);
 
-        transactionRepository.save(transaction);
+        var saved = transactionRepository.save(transaction);
+
+        return converter.fromTransaction(saved);
     }
 }

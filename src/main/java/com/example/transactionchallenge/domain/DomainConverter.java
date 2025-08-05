@@ -20,7 +20,9 @@ public class DomainConverter {
     }
 
     public Transaction fromRequest(TransactionRequest transactionRequest, Account account) {
-        return null;
+        return new Transaction(account.getId(),
+                transactionRequest.operationTypeId(),
+                transactionRequest.amount());
     }
 
     public TransactionResponse fromTransaction(Transaction transaction) {

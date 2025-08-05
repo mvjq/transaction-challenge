@@ -4,6 +4,7 @@ import com.example.transactionchallenge.TransactionFacade;
 import com.example.transactionchallenge.controller.dto.AccountRequest;
 import com.example.transactionchallenge.controller.dto.AccountResponse;
 import com.example.transactionchallenge.controller.dto.TransactionRequest;
+import com.example.transactionchallenge.controller.dto.TransactionResponse;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,8 +27,8 @@ public class TransactionController {
     }
 
     @PostMapping("/transaction")
-    public void createTransaction(@RequestBody TransactionRequest transactionRequest) {
-        transactionFacade.createTransaction(transactionRequest);
+    public TransactionResponse createTransaction(@RequestBody TransactionRequest transactionRequest) {
+        return transactionFacade.createTransaction(transactionRequest);
     }
 
 }
