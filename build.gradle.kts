@@ -23,6 +23,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework:spring-webflux:6.2.9")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.19.2")
+    implementation("org.springframework.retry:spring-retry:2.0.3")
 
     developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 

@@ -5,30 +5,31 @@ import com.example.transactionchallenge.controller.dto.AccountResponse;
 import com.example.transactionchallenge.controller.dto.TransactionRequest;
 import com.example.transactionchallenge.controller.dto.TransactionResponse;
 import com.example.transactionchallenge.domain.DomainConverter;
+import com.example.transactionchallenge.domain.entity.Transaction;
 import com.example.transactionchallenge.domain.repository.AccountRepository;
 import com.example.transactionchallenge.domain.repository.TransactionRepository;
+import com.example.transactionchallenge.service.AccountServiceImpl;
+import com.example.transactionchallenge.service.TransactionServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
 @Component
-public class TransactionServiceImpl implements TransactionService {
-    private final TransactionRepository transactionRepository;
-    private final AccountRepository accountRepository;
+public class TransactionFacadeImpl implements TransactionFacade {
+
+    private final AccountServiceImpl accountService;
+    private final TransactionServiceImpl transactionService;
     private final DomainConverter converter;
 
-    public TransactionServiceImpl(TransactionRepository transactionRepository, AccountRepository accountRepository, DomainConverter converter) {
-        this.transactionRepository = transactionRepository;
-        this.accountRepository = accountRepository;
+    public TransactionFacadeImpl(AccountServiceImpl accountService, TransactionServiceImpl transactionService, DomainConverter converter) {
+        this.accountService = accountService;
+        this.transactionService = transactionService;
         this.converter = converter;
     }
 
     @Override
     public AccountResponse getAccount(Long id) {
-        var account = accountRepository
-                .findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        return converter.toResponse(account);
+        return converter.toResponse(accountService.getAccount(id));
     }
 
     @Override
@@ -42,9 +43,7 @@ public class TransactionServiceImpl implements TransactionService {
         }
 
         var account = converter.toEntity(accountRequest);
-        var saved =
-                accountRepository.findByDocumentNumber(account.getDocumentNumber())
-                .orElse(accountRepository.save(account));
+        var saved = accountService.createAccount(account);
         return converter.toResponse(saved);
     }
 
@@ -57,13 +56,8 @@ public class TransactionServiceImpl implements TransactionService {
                     "Account ID is required and cannot be empty");
         }
 
-        var account =
-                accountRepository.findById(transactionRequest.accountId())
-                        .orElseThrow(() ->
-                                new  ResponseStatusException(HttpStatus.NOT_FOUND));
-        var transaction = converter.toEntity(transactionRequest, account);
-        var saved = transactionRepository.save(transaction);
-
-        return converter.toResponse(saved);
+        Transaction transaction =
+                transactionService.createTransaction(transactionRequest);
+        return converter.toResponse(transaction);
     }
 }

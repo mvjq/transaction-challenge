@@ -1,6 +1,6 @@
 package com.example.transactionchallenge.controller;
 
-import com.example.transactionchallenge.TransactionService;
+import com.example.transactionchallenge.TransactionFacade;
 import com.example.transactionchallenge.controller.dto.AccountRequest;
 import com.example.transactionchallenge.controller.dto.AccountResponse;
 import com.example.transactionchallenge.controller.dto.TransactionRequest;
@@ -12,27 +12,27 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class TransactionController {
 
-    private TransactionService transactionService;
+    private TransactionFacade transactionFacade;
 
-    public TransactionController(TransactionService transactionService) {
-        this.transactionService = transactionService;
+    public TransactionController(TransactionFacade transactionFacade) {
+        this.transactionFacade = transactionFacade;
     }
 
     @GetMapping("/accounts/{id}")
     public AccountResponse getAccount(@PathVariable Long id) {
-        return transactionService.getAccount(id);
+        return transactionFacade.getAccount(id);
     }
 
     @PostMapping("/accounts")
     public ResponseEntity<AccountResponse> createAccount(@RequestBody AccountRequest accountRequest) {
-        var created = transactionService.createAccount(accountRequest);
+        var created = transactionFacade.createAccount(accountRequest);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @PostMapping("/transaction")
     public ResponseEntity<TransactionResponse> createTransaction(@RequestBody TransactionRequest transactionRequest) {
-        var created = transactionService.createTransaction(transactionRequest);
+        var created = transactionFacade.createTransaction(transactionRequest);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }

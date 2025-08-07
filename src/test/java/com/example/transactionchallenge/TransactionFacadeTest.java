@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class TransactionServiceTest {
+public class TransactionFacadeTest {
 
     @Mock
     private TransactionRepository transactionRepository;
@@ -37,7 +37,7 @@ public class TransactionServiceTest {
     private DomainConverter domainConverter;
 
     @InjectMocks
-    private TransactionServiceImpl facade;
+    private TransactionFacadeImpl facade;
 
     private Account account;
     private AccountRequest accountRequest;
